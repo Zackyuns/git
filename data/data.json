@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "nama_produk": "Laptop Quantum X",
+        "stok": 15,
+        "harga": 12500000
+    },
+    {
+        "id": 2,
+        "nama_produk": "Monitor UltraView 32",
+        "stok": 22,
+        "harga": 4500000
+    },
+    {
+        "id": 3,
+        "nama_produk": "Keyboard MechPro 2.0",
+        "stok": 40,
+        "harga": 1100000
+    }
+]

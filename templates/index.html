@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        /* Styling Global & Container */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 40px; 
+            background-color: #f4f7ff; 
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+        }
+        h1 { 
+            color: #004d99; 
+            border-bottom: 3px solid #004d99;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        /* Styling Tabel */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 25px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        th, td { 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 1px solid #ddd;
+        }
+        th { 
+            background-color: #005aa3; 
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.05em;
+        }
+        tr:nth-child(even) { 
+            background-color: #eef3f9; 
+        }
+        tr:hover {
+            background-color: #d1e3f8; 
+            transition: background-color 0.3s ease;
+        }
+
+        /* Styling Data Harga */
+        .harga {
+            text-align: right;
+            font-weight: bold;
+            color: #28a745; 
+        }
+
+        /* Styling Notifikasi */
+        .status-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .error { 
+            color: #dc3545; 
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ title }}</h1>
+
+        {% if data %}
+        <table>
+            <thead>
+                <tr>
+                    {% for key in keys %}
+                    <th>{{ key.replace('_', ' ').title() }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    {% for key in keys %}
+                    <td class="{% if key == 'harga' %}harga{% endif %}">
+                        {% if key in item %}
+                            {{ item[key] }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="error">Gagal memuat data atau file JSON kosong. Periksa `app.py` dan `data/data.json`.</p>
+        {% endif %}
+
+        <hr>
+        <p class="status-info">Backend Flask berhasil me-render **{{ data|length if data else 0 }}** baris data.</p>
+    </div>
+</body>
+</html>
